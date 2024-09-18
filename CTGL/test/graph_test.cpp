@@ -2,8 +2,8 @@
 
 #include <gtest/gtest.h>
 
-#include "../h/graph.h"
-#include "forge.h"
+#include "../inc/graph.hpp"
+#include "forge.hpp"
 
 using namespace ctgl;
 using namespace forge;

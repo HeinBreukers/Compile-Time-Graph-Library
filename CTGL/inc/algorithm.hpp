@@ -1,9 +1,9 @@
 #pragma once
 
-#include "graph.h"
-#include "list.h"
-#include "path.h"
-#include "utility.h"
+#include "graph.hpp"
+#include "list.hpp"
+#include "path.hpp"
+#include "utility.hpp"
 
 namespace ctgl {
 

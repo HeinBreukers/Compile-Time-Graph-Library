@@ -1,8 +1,8 @@
 #pragma once
 
-#include "list.h"
-#include "path.h"
-#include "utility.h"
+#include "list.hpp"
+#include "path.hpp"
+#include "utility.hpp"
 
 namespace ctgl {
 
@@ -11,9 +11,9 @@ namespace ctgl {
 
     namespace graph {
         // Node represents a node with the |ID| identifier.
-        template <int ID>
+        template <typename T>
         struct Node {
-            static constexpr int id = ID;
+            //static constexpr int id = ID;
         };
 
         // Edge represents a directed edge from the tail Node |T| to the head
@@ -276,8 +276,8 @@ namespace ctgl {
 
     // Convenient Type Definitions
     // -------------------------------------------------------------------------
-    template <int ID>
-    using Node = ctgl::graph::Node<ID>;
+    template <typename T>
+    using Node = ctgl::graph::Node<T>;
 
     template<typename T, typename H, int W>
     using Edge = ctgl::graph::Edge<T, H, W>;

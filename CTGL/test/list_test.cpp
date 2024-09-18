@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../h/list.h"
+#include "../inc/list.hpp"
 
 using namespace ctgl;
 

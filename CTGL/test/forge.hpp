@@ -1,19 +1,28 @@
 #pragma once
 
-#include "../h/graph.h"
+#include "../inc/graph.hpp"
 
 using namespace ctgl;
+
+template <int ID>
+class Id
+{
+    static constexpr int id = ID;
+};
+
+
+
 
 namespace forge {
     // Nodes
     // -------------------------------------------------------------------------
-    using N1 = Node<1>;
-    using N2 = Node<2>;
-    using N3 = Node<3>;
-    using N4 = Node<4>;
-    using N5 = Node<5>;
-    using N6 = Node<6>;
-    using N7 = Node<7>;
+    using N1 = Node<Id<1>>;
+    using N2 = Node<Id<2>>;
+    using N3 = Node<Id<3>>;
+    using N4 = Node<Id<4>>;
+    using N5 = Node<Id<5>>;
+    using N6 = Node<Id<6>>;
+    using N7 = Node<Id<7>>;
 
     // Edges
     // -------------------------------------------------------------------------

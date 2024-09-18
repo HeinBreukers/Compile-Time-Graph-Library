@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utility.h"
+#include "utility.hpp"
 
 #include <iostream>
 #include <typeinfo>
@@ -217,16 +217,16 @@ namespace ctgl {
 
         // Streams the names of the types that compose the given List to the provided output stream.
         template <typename T, typename... Ts, typename = std::enable_if_t<sizeof... (Ts) != 0>>
-        inline std::ostream& operator<<(std::ostream& out, const List<T, Ts...>& list) noexcept {
+        inline std::ostream& operator<<(std::ostream& out, [[maybe_unused]] const List<T, Ts...>& list) noexcept {
             return out << typeid(T).name() << ' ' << List<Ts...>{};
         }
 
         template <typename T>
-        inline std::ostream& operator<<(std::ostream& out, const List<T>& list) noexcept {
+        inline std::ostream& operator<<(std::ostream& out, [[maybe_unused]] const List<T>& list) noexcept {
             return out << typeid(T).name();
         }
 
-        inline std::ostream& operator<<(std::ostream& out, const List<>& list) noexcept {
+        inline std::ostream& operator<<(std::ostream& out, [[maybe_unused]] const List<>& list) noexcept {
             return out;
         }
     }

@@ -1,17 +1,18 @@
 #include <iostream>
 
-#include "../h/ctgl.h"
+#include "../inc/ctgl.hpp"
 
 int main() {
     std::cout << "Running the CTGL examples...\n\n";
 
     {
+
         // Example 1
         // -------------------------------------------------------------------------
         // The nodes of a CTGL graph are ctgl::Node<> types with unique ID parameters.
-        using n1 = ctgl::Node<1>;
-        using n2 = ctgl::Node<2>;
-        using n3 = ctgl::Node<3>;
+        using n1 = ctgl::Node<int>;
+        using n2 = ctgl::Node<uint>;
+        using n3 = ctgl::Node<long int>;
         using nodes = ctgl::List<n1, n2, n3>;
 
         // The directed, weighted edges of a CTGL graph are ctgl::Edge<> types.
@@ -19,7 +20,7 @@ int main() {
         // '---------(9)---------^
         using e12 = ctgl::Edge<n1, n2, 4>;
         using e13 = ctgl::Edge<n1, n3, 9>;
-        using e23 = ctgl::Edge<n2, n3, 4>;
+        using e23 = ctgl::Edge<n2, n3, 6>;
         using edges = ctgl::List<e12, e13, e23>;
 
         // By definition, a Graph is a composition of Nodes and Edges.
@@ -33,10 +34,10 @@ int main() {
         // Example 2
         // -------------------------------------------------------------------------
         // Nodes represent cities in the TSP instance.
-        using dubai = ctgl::Node<1>;
-        using miami = ctgl::Node<2>;
-        using paris = ctgl::Node<3>;
-        using tokyo = ctgl::Node<4>;
+        using dubai = ctgl::Node<int>;
+        using miami = ctgl::Node<uint>;
+        using paris = ctgl::Node<long int>;
+        using tokyo = ctgl::Node<char>;
         using cities = ctgl::List<dubai, miami, paris, tokyo>;
 
         // Edges represent unidirectional routes between cities.
@@ -62,10 +63,10 @@ int main() {
         // Example 3
         // -------------------------------------------------------------------------
         // Nodes represent currencies in the foreign exchange market.
-        using aud = ctgl::Node<1>;
-        using cad = ctgl::Node<2>;
-        using nzd = ctgl::Node<3>;
-        using usd = ctgl::Node<4>;
+        using aud = ctgl::Node<int>;
+        using cad = ctgl::Node<uint>;
+        using nzd = ctgl::Node<long int>;
+        using usd = ctgl::Node<char>;
         using currencies = ctgl::List<aud, cad, nzd, usd>;
 
         // Edges represent logarithmic exchange rates between currencies. Why? If the

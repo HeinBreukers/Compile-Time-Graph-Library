@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../h/path.h"
-#include "forge.h"
+#include "../inc/path.hpp"
+#include "forge.hpp"
 
 using namespace ctgl;
 using namespace forge;

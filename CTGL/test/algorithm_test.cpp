@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../h/algorithm.h"
-#include "forge.h"
+#include "../inc/algorithm.hpp"
+#include "forge.hpp"
 
 using namespace ctgl;
 using namespace forge;

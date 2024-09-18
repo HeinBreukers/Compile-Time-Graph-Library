@@ -34,3 +34,4 @@
 # Editors and IDEs
 *.code-workspace
 **.vscode
+build
