@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "../inc/ctgl.hpp"
 
@@ -11,8 +12,8 @@ int main() {
         // -------------------------------------------------------------------------
         // The nodes of a CTGL graph are ctgl::Node<> types with unique ID parameters.
         using n1 = ctgl::Node<int>;
-        using n2 = ctgl::Node<uint>;
-        using n3 = ctgl::Node<long int>;
+        using n2 = ctgl::Node<long int>;
+        using n3 = ctgl::Node<long long int>;
         using nodes = ctgl::List<n1, n2, n3>;
 
         // The directed, weighted edges of a CTGL graph are ctgl::Edge<> types.
@@ -34,10 +35,30 @@ int main() {
         // Example 2
         // -------------------------------------------------------------------------
         // Nodes represent cities in the TSP instance.
-        using dubai = ctgl::Node<int>;
-        using miami = ctgl::Node<uint>;
-        using paris = ctgl::Node<long int>;
-        using tokyo = ctgl::Node<char>;
+        struct Dubai
+        {
+            std::string cityName;
+        };
+
+        struct Miami
+        {
+            std::string cityName;
+        };
+
+        struct Paris
+        {
+            std::string cityName;
+        };
+
+        struct Tokyo
+        {
+            std::string cityName;
+        };
+
+        using dubai = ctgl::Node<Dubai>;
+        using miami = ctgl::Node<Miami>;
+        using paris = ctgl::Node<Paris>;
+        using tokyo = ctgl::Node<Tokyo>;
         using cities = ctgl::List<dubai, miami, paris, tokyo>;
 
         // Edges represent unidirectional routes between cities.
@@ -59,6 +80,16 @@ int main() {
         constexpr auto circuit = ctgl::algorithm::findShortestRoute(world{}, dubai{}, cities{});
         constexpr int length = ctgl::path::length(circuit);
         std::cout << "The solution to the TSP has length " << length << ".\n";
+
+        constexpr auto shortestPath = ctgl::algorithm::findShortestPath(world{},dubai{},tokyo{});
+        auto tup = std::make_tuple(Dubai{"Dubai"},Miami{"Miami"},Paris{"Paris"},Tokyo{"Tokyo"});
+        auto under = edgeToTail(shortestPath);
+        auto sub = getSubTuple(tup, under);
+
+        std::cout << "The shortest path from Dubai to Tokyo has flights from: \n";
+        std::apply([](const auto&... vars){
+            ((std::cout<<vars.cityName<<'\n'),...);
+            },sub);
     }{
         // Example 3
         // -------------------------------------------------------------------------
