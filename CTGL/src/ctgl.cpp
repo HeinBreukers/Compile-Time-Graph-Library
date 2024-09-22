@@ -83,8 +83,8 @@ int main() {
 
         constexpr auto shortestPath = ctgl::algorithm::findShortestPath(world{},dubai{},tokyo{});
         auto tup = std::make_tuple(Dubai{"Dubai"},Miami{"Miami"},Paris{"Paris"},Tokyo{"Tokyo"});
-        auto under = edgeToTail(shortestPath);
-        auto sub = getSubTuple(tup, under);
+        auto under = ctgl::rtutil::edgeListToTailList(shortestPath);
+        auto sub = ctgl::rtutil::listToSubTuple(tup, under);
 
         std::cout << "The shortest path from Dubai to Tokyo has flights from: \n";
         std::apply([](const auto&... vars){
