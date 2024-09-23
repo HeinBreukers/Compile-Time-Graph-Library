@@ -80,16 +80,6 @@ int main() {
         constexpr auto circuit = ctgl::algorithm::findShortestRoute(world{}, dubai{}, cities{});
         constexpr int length = ctgl::path::length(circuit);
         std::cout << "The solution to the TSP has length " << length << ".\n";
-
-        constexpr auto shortestPath = ctgl::algorithm::findShortestPath(world{},dubai{},tokyo{});
-        auto tup = std::make_tuple(Dubai{"Dubai"},Miami{"Miami"},Paris{"Paris"},Tokyo{"Tokyo"});
-        auto under = ctgl::rtutil::edgeListToTailList(shortestPath);
-        auto sub = ctgl::rtutil::listToSubTuple(tup, under);
-
-        std::cout << "The shortest path from Dubai to Tokyo has flights from: \n";
-        std::apply([](const auto&... vars){
-            ((std::cout<<vars.cityName<<'\n'),...);
-            },sub);
     }{
         // Example 3
         // -------------------------------------------------------------------------
@@ -116,6 +106,83 @@ int main() {
         using market = ctgl::Graph<currencies, log_rates>;
         constexpr bool arbitrage = ctgl::graph::hasNegativeCycle(market{});
         std::cout << "The foreign exchange market " << (arbitrage ? "is" : "is not") << " susceptible to arbitrage.\n";
+    }{
+        // Example 4
+        // -------------------------------------------------------------------------
+        // Nodes represent tasks. Get optimal task execution order and execute tasks using runtime data.
+        struct Task1
+        {
+            void operator()() const
+            {
+                std::cout<<taskState<<'\n';
+            }
+            std::string taskState;
+        };
+
+        struct Task2
+        {
+            void operator()() const
+            {
+                std::cout<<taskState<<'\n';
+            }
+            std::string taskState;
+        };
+
+        struct Task3
+        {
+            void operator()() const
+            {
+                std::cout<<taskState<<'\n';
+            }
+            std::string taskState;
+        };
+
+        struct Task4
+        {
+            void operator()() const
+            {
+                std::cout<<taskState<<'\n';
+            }
+            std::string taskState;
+        };
+
+        using t1 = ctgl::Node<Task1>;
+        using t2 = ctgl::Node<Task2>;
+        using t3 = ctgl::Node<Task3>;
+        using t4 = ctgl::Node<Task4>;
+        using tasks = ctgl::List<t1, t2, t3, t4>;
+
+        // Edges represent cost of triggering next task.
+        //                  .-------------(1)-------------v
+        // Task1 --(1)--> Task2 --(2)--> Task3 --(1)--> Task4
+        // ^   ^-----------(3)-----------'   ^---(4)----'   |
+        // '----------------------(3)-----------------------'
+        using routes = ctgl::List<ctgl::Edge<t1, t2, 1>,
+                                  ctgl::Edge<t2, t3, 2>,
+                                  ctgl::Edge<t2, t4, 1>,
+                                  ctgl::Edge<t3, t1, 3>,
+                                  ctgl::Edge<t3, t4, 1>,
+                                  ctgl::Edge<t4, t1, 3>,
+                                  ctgl::Edge<t4, t3, 4>>;
+
+        // |circuit| represents an optimal solution to the TSP instance from Task1.
+        // The type of |circuit| will express Task1 --> Task2 --> Task3 --> Task4 --> Repeat.
+        using program = ctgl::Graph<tasks, routes>;
+        constexpr auto circuit = ctgl::algorithm::findShortestRoute(program{}, t1{}, tasks{});
+        constexpr int length = ctgl::path::length(circuit);
+        std::cout << "The solution to the TSP has length " << length << ".\n";
+
+        // Initialize tasks using CTG
+        auto tup = std::make_tuple(Task1{"Foo"},Task2{"Bar"},Task3{"Hello"},Task4{"World"});
+        auto under = ctgl::rtutil::edgeListToTailList(circuit);
+        auto sub = ctgl::rtutil::listToSubTuple(tup, under);
+
+        // Execute tasks in CTG in optimal order
+        std::cout << "Running Tasks in program: \n";
+        std::apply([](const auto&... vars){
+            ((vars()),...);
+            },sub);
+
     }
 
     std::cout << "\nDone.\n";

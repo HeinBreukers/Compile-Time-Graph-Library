@@ -10,10 +10,9 @@ namespace ctgl {
     // -------------------------------------------------------------------------
 
     namespace graph {
-        // Node represents a node with the |ID| identifier.
+        // Node represents a node with the |T| identifier.
         template <typename T>
         struct Node {
-            //static constexpr int id = ID;
         };
 
         // Edge represents a directed edge from the tail Node |T| to the head
